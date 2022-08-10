@@ -31,9 +31,9 @@
   },
   "dependencies": {
     "@franzzemen/re-common": "0.0.34",
-    "@franzzemen/re-condition": "0.0.4",
+    "@franzzemen/re-condition": "0.0.6",
     "@franzzemen/re-data-type": "0.0.16",
-    "@franzzemen/re-expression": "0.0.6",
+    "@franzzemen/re-expression": "0.0.8",
     "fastest-validator": "^1.12.0",
     "moment": "^2.29.4",
     "object-path": "^0.11.8",
