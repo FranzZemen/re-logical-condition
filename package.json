@@ -1,0 +1,19 @@
+{
+  "name": "@franzzemen/re-logical-condition",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FranzZemen/re-logical-condition.git"
+  },
+  "author": "Franz Zemen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FranzZemen/re-logical-condition/issues"
+  },
+  "homepage": "https://github.com/FranzZemen/re-logical-condition#readme"
+}
