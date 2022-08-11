@@ -1,3 +1,4 @@
+export * from './util/external-index';
 export * from './logical-condition-group-reference';
 export * from './logical-condition';
 export * from './logical-condition-result';

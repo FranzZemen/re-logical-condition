@@ -1,6 +1,6 @@
 {
   "name": "@franzzemen/re-logical-condition",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,7 @@
   "devDependencies": {
     "@franzzemen/gulp-base": "^7.5.3",
     "@franzzemen/safe-config": "^2.0.43",
-    "@types/chai": "^4.3.1",
+    "@types/chai": "^4.3.3",
     "@types/mocha": "^9.1.1",
     "@types/object-path": "^0.11.1",
     "@types/uuid": "^8.3.4",
@@ -30,10 +30,10 @@
     "typescript": "^4.4.4"
   },
   "dependencies": {
-    "@franzzemen/re-common": "0.0.35",
-    "@franzzemen/re-condition": "0.0.7",
-    "@franzzemen/re-data-type": "0.0.17",
-    "@franzzemen/re-expression": "0.0.9",
+    "@franzzemen/re-common": "0.0.37",
+    "@franzzemen/re-condition": "0.0.8",
+    "@franzzemen/re-data-type": "0.0.18",
+    "@franzzemen/re-expression": "0.0.10",
     "fastest-validator": "^1.12.0",
     "moment": "^2.29.4",
     "object-path": "^0.11.8",
