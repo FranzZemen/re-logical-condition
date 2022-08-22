@@ -1,6 +1,6 @@
 {
   "name": "@franzzemen/re-logical-condition",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@franzzemen/re-common": "0.0.47",
-    "@franzzemen/re-condition": "0.0.13",
+    "@franzzemen/re-condition": "0.0.14",
     "@franzzemen/re-data-type": "0.0.27",
     "@franzzemen/re-expression": "0.0.16",
     "fastest-validator": "^1.13.0",
