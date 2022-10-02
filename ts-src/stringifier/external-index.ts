@@ -1,2 +1,2 @@
-export * from './stringify-logical-condition-options';
-export * from './logical-condition-stringifier';
+export * from './stringify-logical-condition-options.js';
+export * from './logical-condition-stringifier.js';

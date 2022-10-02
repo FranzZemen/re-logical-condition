@@ -1,1 +1,1 @@
-export * from './logical-expression';
+export * from './logical-expression-reference.js';

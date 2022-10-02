@@ -1,7 +1,7 @@
 import 'mocha';
 import {LogicalOperator} from '@franzzemen/re-common';
 import chai from 'chai';
-import {LogicalConditionParser, LogicalConditionScope, LogicalConditionStringifier} from '../../publish';
+import {LogicalConditionParser, LogicalConditionScope, LogicalConditionStringifier} from '../../publish/index.js';
 
 
 const expect = chai.expect;

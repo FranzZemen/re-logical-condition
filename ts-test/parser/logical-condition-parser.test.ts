@@ -2,7 +2,7 @@ import {isFragment, isRecursiveGrouping, LogicalOperator} from '@franzzemen/re-c
 import {ExpressionType, isValueExpressionReference} from '@franzzemen/re-expression';
 import chai from 'chai';
 import 'mocha';
-import {LogicalConditionParser, LogicalConditionScope} from '../../publish';
+import {LogicalConditionParser, LogicalConditionScope} from '../../publish/index.js';
 
 
 const expect = chai.expect;

@@ -1,11 +1,12 @@
+import {isPromise} from 'node:util/types';
 import {ExecutionContextI, LoggerAdapter} from '@franzzemen/app-utility';
-import {isFragment, isPromise, LogicalOperator} from '@franzzemen/re-common';
+import {isFragment, LogicalOperator} from '@franzzemen/re-common';
 import {Condition, ConditionI} from '@franzzemen/re-condition';
-import {isLogicalConditionGroupReference, LogicalConditionGroupReference} from './logical-condition-group-reference';
+import {isLogicalConditionGroupReference, LogicalConditionGroupReference} from './logical-condition-group-reference.js';
 
 
-import {LogicalConditionResult} from './logical-condition-result';
-import {LogicalConditionScope} from './scope/logical-condition-scope';
+import {LogicalConditionResult} from './logical-condition-result.js';
+import {LogicalConditionScope} from './scope/logical-condition-scope.js';
 
 export type LogicalConditionOrLogicalConditionGroup = LogicalCondition | LogicalConditionGroup;
 
@@ -30,62 +31,19 @@ export class LogicalConditionGroup {
     return LogicalConditionGroup.evaluate(this, item, scope, ec);
   }
 
-  constructor(logicalConditionGroup?: LogicalConditionGroupReference | LogicalConditionGroup, scope?: LogicalConditionScope, ec?: ExecutionContextI) {
-    if(logicalConditionGroup && scope) {
-      LogicalConditionGroup.fromToInstance(this, logicalConditionGroup, scope, ec);
-    }
-  }
-
-  static from(logicalConditionGroup: LogicalConditionGroup | LogicalConditionGroupReference, scope: LogicalConditionScope, ec?: ExecutionContextI) : LogicalConditionGroup {
-    return new LogicalConditionGroup(logicalConditionGroup, scope, ec);
-  }
-
-  private static fromToInstance(instance: LogicalConditionGroup, logicalConditionGroup: LogicalConditionGroup | LogicalConditionGroupReference, scope: LogicalConditionScope, ec?: ExecutionContextI) {
-    if(isLogicalConditionGroupReference(logicalConditionGroup)) {
-      LogicalConditionGroup.fromReference(instance, logicalConditionGroup, scope, ec);
-    } else {
-      LogicalConditionGroup.fromCopy(instance, logicalConditionGroup, scope, ec);
-    }
-  }
-
-  private static fromReference(instance: LogicalConditionGroup, logicalConditionGroupReference: LogicalConditionGroupReference, scope: LogicalConditionScope, ec?: ExecutionContextI) {
-    if(instance && logicalConditionGroupReference) {
-      instance.operator = logicalConditionGroupReference.operator;
-      logicalConditionGroupReference.group.forEach(element => {
+  constructor(ref: LogicalConditionGroupReference, scope: LogicalConditionScope, ec?: ExecutionContextI) {
+      this.operator = ref.operator;
+      ref.group.forEach(element => {
         if (isFragment(element)) {
           const logicalCondition = new LogicalCondition();
           logicalCondition.operator = element.operator;
-          logicalCondition.condition = Condition.from(element.reference, scope, ec);
-          instance.conditions.push(logicalCondition);
+          logicalCondition.condition = new Condition(element.reference, scope, ec);
+          this.conditions.push(logicalCondition);
         } else {
-          const childInstance = new LogicalConditionGroup();
-          LogicalConditionGroup.fromReference(childInstance, element, scope, ec);
-          instance.conditions.push(childInstance);
+          const childInstance = new LogicalConditionGroup(element, scope, ec);
+          this.conditions.push(childInstance);
         }
       });
-    } else {
-      throw new Error('Unimplemented');
-    }
-  }
-
-  private static fromCopy(instance: LogicalConditionGroup, logicalConditionGroup: LogicalConditionGroup, scope: LogicalConditionScope, ec?: ExecutionContextI) {
-    if(instance && logicalConditionGroup) {
-      instance.operator = logicalConditionGroup.operator;
-      logicalConditionGroup.conditions.forEach(element => {
-        if (isLogicalCondition(element)) {
-          const logicalCondition = new LogicalCondition();
-          logicalCondition.operator = element.operator;
-          logicalCondition.condition = Condition.from(element.condition as Condition, scope, ec);
-          instance.conditions.push(logicalCondition);
-        } else {
-          const childInstance = new LogicalConditionGroup();
-          LogicalConditionGroup.fromCopy(childInstance, element, scope, ec);
-          instance.conditions.push(childInstance);
-        }
-      });
-    } else {
-      throw new Error('Unimplemented');
-    }
   }
 
   to(ec?:ExecutionContextI) : LogicalConditionGroupReference {

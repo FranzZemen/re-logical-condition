@@ -1,40 +1,51 @@
-const join = require('path').join;
-const gulpBase = require('@franzzemen/gulp-base').init(require('./package.json'), 100, true);
-require('@franzzemen/gulp-base').setMainBranch('main');
+import {cwd} from 'node:process';
+import * as gulpBase from '@franzzemen/gulp-base';
+import {createRequire} from 'module';
+import {join, dirname} from 'node:path';
+import {npmu as npmuFunc} from '@franzzemen/npmu';
+import {fileURLToPath} from 'url';
 
+const requireModule = createRequire(import.meta.url);
+gulpBase.init(requireModule('./package.json'), cwd() + '/tsconfig.src.json', cwd() + '/tsconfig.test.json', 100);
+gulpBase.setMainBranch('main');
 
-const npmu = require('@franzzemen/npmu').npmu;
-
-exports.npmu = (cb) => npmu([
-  {
-    path: join(__dirname, '../gulp-base'), packageName: '@franzzemen/gulp-base',
-  }, {
-    path: join(__dirname, '../npmu'), packageName: '@franzzemen/npmu',
-  }, {
-    path: join(__dirname, '../app-utility'), packageName: '@franzzemen/app-utility',
-  }, {
-    path: join(__dirname, '../re-common'), packageName: '@franzzemen/re-common',
-  }, {
-    path: join(__dirname, '../re-data-type'), packageName: '@franzzemen/re-data-type',
-  }, {
-    path: join(__dirname, '../re-expression'), packageName: '@franzzemen/re-expression',
-  }, {
-    path: join(__dirname, '../re-condition'), packageName: '@franzzemen/re-condition',
-  }, {
-    path: join(__dirname, './'), packageName: '@franzzemen/re-logical-condition',
-  }])
-  .then(() => {
-    console.log('cb...');
-    cb();
-  });
+export const npmu = (cb) => {
+  const __dirname = dirname(fileURLToPath(import.meta.url));
   
-exports.buildTest = gulpBase.buildTest;
-exports.test = gulpBase.test;
+  npmuFunc([
+    {
+      path: join(__dirname, '../gulp-base'), packageName: '@franzzemen/gulp-base'
+    }, {
+      path: join(__dirname, '../npmu'), packageName: '@franzzemen/npmu'
+    }, {
+      path: join(__dirname, '../app-utility'), packageName: '@franzzemen/app-utility'
+    }, {
+      path: join(__dirname, '../re-common'), packageName: '@franzzemen/re-common'
+    }, {
+      path: join(__dirname, '../re-data-type'), packageName: '@franzzemen/re-data-type'
+    }, {
+      path: join(__dirname, '../re-expression'), packageName: '@franzzemen/re-expression'
+    }, {
+      path: join(__dirname, '../re-condition'), packageName: '@franzzemen/re-condition'
+    }, {
+      path: join(__dirname, './'), packageName: '@franzzemen/re-logical-condition'
+    }])
+    .then(() => {
+      console.log('cb...');
+      cb();
+    });
+};
 
-exports.default = gulpBase.default;
-exports.patch = gulpBase.patch;
-exports.minor = gulpBase.minor;
-exports.major = gulpBase.major;
 
+export const test = gulpBase.test;
 
-exports.npmForceUpdateProject = gulpBase.npmForceUpdateProject;
+export const clean = gulpBase.clean;
+export const buildTest = gulpBase.buildTest;
+export default gulpBase.default;
+
+export const patch = gulpBase.patch;
+export const minor = gulpBase.minor;
+export const major = gulpBase.major;
+
+export const npmForceUpdateProject = gulpBase.npmForceUpdateProject;
+export const npmUpdateProject = gulpBase.npmUpdateProject;

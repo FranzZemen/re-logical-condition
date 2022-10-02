@@ -1,2 +1,2 @@
-export * from './logical-condition-options';
-export * from './logical-condition-scope';
+export * from './logical-condition-options.js';
+export * from './logical-condition-scope.js';

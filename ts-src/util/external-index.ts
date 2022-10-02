@@ -1,1 +1,1 @@
-export * from './logical-condition-hint-key';
+export * from './logical-condition-hint-key.js';

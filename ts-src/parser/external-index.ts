@@ -1,2 +1,2 @@
-export * from './logical-condition-parser';
-export * from './logical-expression-parser';
+export * from './logical-condition-parser.js';
+export * from './logical-expression-parser.js';
