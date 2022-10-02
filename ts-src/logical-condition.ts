@@ -1,8 +1,8 @@
-import {isPromise} from 'node:util/types';
 import {ExecutionContextI, LoggerAdapter} from '@franzzemen/app-utility';
 import {isFragment, LogicalOperator} from '@franzzemen/re-common';
 import {Condition, ConditionI} from '@franzzemen/re-condition';
-import {isLogicalConditionGroupReference, LogicalConditionGroupReference} from './logical-condition-group-reference.js';
+import {isPromise} from 'node:util/types';
+import {LogicalConditionGroupReference} from './logical-condition-group-reference.js';
 
 
 import {LogicalConditionResult} from './logical-condition-result.js';
@@ -27,8 +27,8 @@ export class LogicalConditionGroup {
   operator: LogicalOperator;
   conditions: LogicalConditionOrLogicalConditionGroup[] = [];
 
-  validate(item: any, scope: Map<string, any>, ec?: ExecutionContextI): LogicalConditionResult | Promise<LogicalConditionResult> {
-    return LogicalConditionGroup.evaluate(this, item, scope, ec);
+  awaitEvaluation(item: any, scope: LogicalConditionScope, ec?: ExecutionContextI): LogicalConditionResult | Promise<LogicalConditionResult> {
+    return LogicalConditionGroup.awaitEvaluation(this, item, scope, ec);
   }
 
   constructor(ref: LogicalConditionGroupReference, scope: LogicalConditionScope, ec?: ExecutionContextI) {
@@ -60,7 +60,7 @@ export class LogicalConditionGroup {
     return topRef as LogicalConditionGroupReference;
   }
 
-  private static evaluate(logicalConditionGroup: LogicalConditionGroup, item: any, scope: Map<string, any>, ec?:ExecutionContextI): LogicalConditionResult | Promise<LogicalConditionResult> {
+  private static awaitEvaluation(logicalConditionGroup: LogicalConditionGroup, item: any, scope: LogicalConditionScope, ec?:ExecutionContextI): LogicalConditionResult | Promise<LogicalConditionResult> {
     const log = new LoggerAdapter(ec, 'rules-engine', 'logical-condition-group', LogicalConditionGroup.name + ':evaluate');
     if (logicalConditionGroup) {
       const logicalResults: LogicalConditionResult[] = [];
@@ -85,7 +85,7 @@ export class LogicalConditionGroup {
             logicalResultsPromises.push(undefined);
           }
         } else {
-          const subResult = LogicalConditionGroup.evaluate(element, item, scope, ec);
+          const subResult = LogicalConditionGroup.awaitEvaluation(element, item, scope, ec);
           if (isPromise(subResult)) {
             // At least one promise
             // Add partial (undefined) logical result
