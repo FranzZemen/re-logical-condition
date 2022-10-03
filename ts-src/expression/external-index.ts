@@ -1,1 +1,1 @@
-export * from './logical-expression-reference.js';
+export * from './logical-condition-expression.js';

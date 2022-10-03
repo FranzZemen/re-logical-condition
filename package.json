@@ -1,6 +1,6 @@
 {
   "name": "@franzzemen/re-logical-condition",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "",
   "type": "module",
   "main": "index.js",
@@ -32,10 +32,11 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
-    "@franzzemen/re-common": "7.0.21",
-    "@franzzemen/re-condition": "0.0.20",
-    "@franzzemen/re-data-type": "4.0.21",
-    "@franzzemen/re-expression": "2.1.9",
+    "@franzzemen/app-utility": "^5.0.17",
+    "@franzzemen/re-common": "7.0.22",
+    "@franzzemen/re-condition": "0.0.22",
+    "@franzzemen/re-data-type": "4.0.22",
+    "@franzzemen/re-expression": "3.0.1",
     "fastest-validator": "^1.15.0",
     "moment": "^2.29.4",
     "object-path": "^0.11.8",

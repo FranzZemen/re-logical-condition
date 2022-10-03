@@ -15,7 +15,10 @@ import {
   ExpressionStackParser,
   ExpressionType
 } from '@franzzemen/re-expression';
-import {LogicalExpressionReference} from '../expression/logical-expression-reference.js';
+import {
+  LogicalConditionExpressionReference,
+  LogicalConditionExpressionType
+} from '../expression/logical-condition-expression.js';
 
 
 
@@ -39,18 +42,18 @@ class FragmentParserAdapter implements FragmentParser<ExpressionReference> {
 
 export class LogicalExpressionParser extends ExpressionParser {
   constructor() {
-    super(ExpressionType.Logical);
+    super(LogicalConditionExpressionType.Logical);
   }
 
-  parse(remaining: string, scope: ExpressionScope, hints: Hints, ec?: ExecutionContextI): [string, LogicalExpressionReference, ParserMessages] {
+  parse(remaining: string, scope: ExpressionScope, hints: Hints, ec?: ExecutionContextI): [string, LogicalConditionExpressionReference, ParserMessages] {
     const log = new LoggerAdapter(ec, 'rules-engine', 'logical-expression-parser', 'parse');
 
     let type = hints.get(ExpressionHintKey.Type) as string;
-    if(type && type !== ExpressionType.Logical) {
+    if(type && type !== LogicalConditionExpressionType.Logical) {
       // Helps the inference parser know this is not the parser required
       return [remaining, undefined, undefined];
     } else {
-      type = ExpressionType.Logical;
+      type = LogicalConditionExpressionType.Logical;
     }
     let dataTypeRef = hints.get(ExpressionHintKey.DataType) as string;
     if(dataTypeRef && dataTypeRef !== StandardDataType.Boolean) {
@@ -65,7 +68,7 @@ export class LogicalExpressionParser extends ExpressionParser {
       return [remaining, undefined, undefined];
     }
     const recursiveParser = new RecursiveGroupingParser<LogicalOperator, ExpressionReference>(new FragmentParserAdapter());
-    let logicalExpressionReference: Partial<LogicalExpressionReference>;
+    let logicalExpressionReference: Partial<LogicalConditionExpressionReference>;
     let endCondition: EndConditionType;
     [remaining, logicalExpressionReference, endCondition] = recursiveParser.parse(remaining, scope, logicalOperators, LogicalOperator.and, [/^][^]*$/], undefined, ec);
     logicalExpressionReference.type = type;
@@ -77,7 +80,7 @@ export class LogicalExpressionParser extends ExpressionParser {
       log.error(err);
       throw err;
     }
-    return [remaining, logicalExpressionReference as LogicalExpressionReference, undefined];
+    return [remaining, logicalExpressionReference as LogicalConditionExpressionReference, undefined];
   }
 
 }

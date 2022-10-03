@@ -1,5 +1,5 @@
 import {isFragment, isRecursiveGrouping, LogicalOperator} from '@franzzemen/re-common';
-import {ExpressionType, isValueExpressionReference} from '@franzzemen/re-expression';
+import {isValueExpressionReference, StandardExpressionType} from '@franzzemen/re-expression';
 import chai from 'chai';
 import 'mocha';
 import {LogicalConditionParser, LogicalConditionScope} from '../../publish/index.js';
@@ -91,7 +91,7 @@ describe('Rules Engine Tests', () => {
       it('it should parse simple top level rule "Hello" = world', done => {
         const [remaining, result] = parser.parse('"Hello" = world', scope, operators, LogicalOperator.and, endConditionTests);
         if (isFragment(result.group[0])) {
-          result.group[0].reference.rhsRef.type.should.equal(ExpressionType.Attribute);
+          result.group[0].reference.rhsRef.type.should.equal(StandardExpressionType.Attribute);
         } else {
           unreachableCode.should.be.true;
         }
