@@ -4,6 +4,6 @@ export interface LogicalConditionOptions extends ConditionOptions {
 
 }
 
-export function _mergeLogicalConditionOptions(source: LogicalConditionOptions, target: LogicalConditionOptions, mergeInto = true): LogicalConditionOptions {
-  return _mergeConditionOptions(source, target, mergeInto);
+export function _mergeLogicalConditionOptions(target: LogicalConditionOptions, source: LogicalConditionOptions, mergeInto = true): LogicalConditionOptions {
+  return _mergeConditionOptions(target, source, mergeInto);
 }
