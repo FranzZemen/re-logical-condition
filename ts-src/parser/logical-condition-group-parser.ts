@@ -3,7 +3,7 @@ import {ConditionParser, ConditionReference} from '@franzzemen/re-condition';
 
 export const endConditionTests = [
   /^$/,
-  /^<<ap|rs|ru[^]*$/
+  /^(<<ap|rs|ru)[^]*$/
 ]
 
 export class LogicalConditionGroupParser extends RecursiveGroupingParser<LogicalOperator, ConditionReference> {
