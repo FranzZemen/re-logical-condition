@@ -42,7 +42,7 @@ export class LogicalConditionGroup {
       }
     });
     if (!scope.isResolved()) {
-      const log = new LoggerAdapter(ec, 're-logical-condition', 'logical-condition', 'constructor');
+      const log = new LoggerAdapter(ec, 're-logical-condition', 'logical-condition-group', 'constructor');
       log.debug({scope}, 'Scope needs to be externally resolved');
     }
   }
@@ -212,7 +212,7 @@ export class LogicalConditionGroup {
       let hasPromises = false;
       logicalConditionGroup.conditions.forEach(element => {
         if (isLogicalCondition(element)) {
-          const conditionResult = element.condition.awaitValidation(item, scope, ec);
+          const conditionResult = element.condition.awaitEvaluation(item, scope, ec);
           if (isPromise(conditionResult)) {
             // At least one promise
             // Add partial logical result

@@ -1,7 +1,7 @@
 import 'mocha';
 import {LogicalOperator} from '@franzzemen/re-common';
 import chai from 'chai';
-import {LogicalConditionGroup, LogicalConditionParser, LogicalConditionScope} from '../publish/index.js';
+import {LogicalConditionGroup, LogicalConditionGroupParser, LogicalConditionScope} from '../publish/index.js';
 
 
 const expect = chai.expect;
@@ -16,7 +16,7 @@ let endConditionTests = [
 ];
 
 const unreachableCode = false;
-const parser = new LogicalConditionParser();
+const parser = new LogicalConditionGroupParser();
 
 describe('Rules Engine Tests', () => {
   describe('Logical Condition Tests', () => {

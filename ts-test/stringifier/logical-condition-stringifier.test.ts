@@ -1,7 +1,7 @@
 import 'mocha';
 import {LogicalOperator} from '@franzzemen/re-common';
 import chai from 'chai';
-import {LogicalConditionParser, LogicalConditionScope, LogicalConditionStringifier} from '../../publish/index.js';
+import {LogicalConditionScope, LogicalConditionStringifier} from '../../publish/index.js';
 
 
 const expect = chai.expect;
@@ -9,13 +9,9 @@ const should = chai.should();
 
 const scope = new LogicalConditionScope();
 const unreachableCode = false;
-const parser = new LogicalConditionParser();
 const stringifier = new LogicalConditionStringifier();
-let endConditionTests = [
-  /^$/,
-  /^<<ap|rs|ru[^]*$/
-]
-let operators = [LogicalOperator.andNot, LogicalOperator.and, LogicalOperator.orNot, LogicalOperator.or];
+
+//let operators = [LogicalOperator.andNot, LogicalOperator.and, LogicalOperator.orNot, LogicalOperator.or];
 
 /*
 describe('Rules Engine Tests', () => {

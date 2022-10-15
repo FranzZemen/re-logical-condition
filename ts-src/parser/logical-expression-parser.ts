@@ -3,7 +3,8 @@ import {
   EndConditionType,
   FragmentParser,
   LogicalOperator,
-  ParserMessages, PsMsgType,
+  ParserMessages,
+  ParserMessageType,
   RecursiveGroupingParser
 } from '@franzzemen/re-common';
 import {StandardDataType} from '@franzzemen/re-data-type';
@@ -12,8 +13,7 @@ import {
   ExpressionParser,
   ExpressionReference,
   ExpressionScope,
-  ExpressionStackParser,
-  ExpressionType
+  ExpressionStackParser
 } from '@franzzemen/re-expression';
 import {
   LogicalConditionExpressionReference,
@@ -21,8 +21,7 @@ import {
 } from '../expression/logical-condition-expression.js';
 
 
-
-const logicalOperators = [LogicalOperator.andNot, LogicalOperator.and, LogicalOperator.orNot, LogicalOperator.or];
+export const logicalOperators = [LogicalOperator.andNot, LogicalOperator.and, LogicalOperator.orNot, LogicalOperator.or];
 
 class FragmentParserAdapter implements FragmentParser<ExpressionReference> {
   parse(fragment: string, scope: ExpressionScope, ec?: ExecutionContextI): [string, ExpressionReference, ParserMessages] {
@@ -32,7 +31,7 @@ class FragmentParserAdapter implements FragmentParser<ExpressionReference> {
     const parser = scope.get(ExpressionScope.ExpressionStackParser) as ExpressionStackParser;
     let [remaining, expression] =  parser.parse(fragment, scope, undefined, ec);
     if(expression.dataTypeRef !== StandardDataType.Boolean) {
-      parserMessages.push({message:`Fragment expression in a Logical Expression needs to be of type Boolean, not ${expression.dataTypeRef}, near ${near}`, type: PsMsgType.Error});
+      parserMessages.push({message:`Fragment expression in a Logical Expression needs to be of type Boolean, not ${expression.dataTypeRef}, near ${near}`, type: ParserMessageType.Error});
       return [undefined, undefined, parserMessages]
     }
     return [remaining, expression, undefined];
