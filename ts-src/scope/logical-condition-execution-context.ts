@@ -6,7 +6,12 @@ import {AppExecutionContextDefaults, appSchemaWrapper} from '@franzzemen/app-exe
 import {ExecutionContextDefaults, executionSchemaWrapper} from '@franzzemen/execution-context';
 import {LogExecutionContextDefaults, logSchemaWrapper} from '@franzzemen/logger-adapter';
 import {CommonExecutionContextDefaults, commonOptionsSchemaWrapper} from '@franzzemen/re-common';
-import {ConditionExecutionContext, ConditionExecutionContextDefaults, ReCondition} from '@franzzemen/re-condition';
+import {
+  ConditionExecutionContext,
+  ConditionExecutionContextDefaults,
+  conditionOptionsSchemaWrapper,
+  ReCondition
+} from '@franzzemen/re-condition';
 import {DataTypeExecutionContextDefaults, dataTypeOptionsSchemaWrapper} from '@franzzemen/re-data-type';
 import {ExpressionExecutionContextDefaults, expressionOptionsSchemaWrapper} from '@franzzemen/re-expression';
 import Validator, {ValidationError} from 'fastest-validator';
@@ -24,15 +29,14 @@ export interface LogicalConditionExecutionContext extends ConditionExecutionCont
 }
 
 export class LogicalConditionExecutionContextDefaults {
-  static LogicalConditionOptions: LogicalConditionOptions = {
-  }
+  static LogicalConditionOptions: LogicalConditionOptions = {};
   static ReLogicalCondition: ReLogicalCondition = {
     common: CommonExecutionContextDefaults.CommonOptions,
     data: DataTypeExecutionContextDefaults.DataTypeOptions,
     expression: ExpressionExecutionContextDefaults.ExpressionOptions,
     condition: ConditionExecutionContextDefaults.ConditionOptions,
     logicalCondition: LogicalConditionExecutionContextDefaults.LogicalConditionOptions
-  }
+  };
   static LogicalConditionExecutionContext: LogicalConditionExecutionContext = {
     execution: ExecutionContextDefaults.Execution(),
     app: AppExecutionContextDefaults.App,
@@ -41,8 +45,7 @@ export class LogicalConditionExecutionContextDefaults {
   };
 }
 
-export const conditionOptionsSchema = {
-};
+export const conditionOptionsSchema = {};
 
 export const logicalConditionOptionsSchemaWrapper = {
   type: 'object',
@@ -55,7 +58,8 @@ const reLogicalConditionSchema = {
   common: commonOptionsSchemaWrapper,
   data: dataTypeOptionsSchemaWrapper,
   expression: expressionOptionsSchemaWrapper,
-  condition: logicalConditionOptionsSchemaWrapper,
+  condition: conditionOptionsSchemaWrapper,
+  logicalCondition: logicalConditionOptionsSchemaWrapper
 };
 
 export const reLogicalConditionSchemaWrapper = {
