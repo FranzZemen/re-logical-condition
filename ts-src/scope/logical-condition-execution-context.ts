@@ -5,10 +5,10 @@ License Type:
 import {AppExecutionContextDefaults, appSchemaWrapper} from '@franzzemen/app-execution-context';
 import {ExecutionContextDefaults, executionSchemaWrapper} from '@franzzemen/execution-context';
 import {LogExecutionContextDefaults, logSchemaWrapper} from '@franzzemen/logger-adapter';
-import {commonOptionsSchemaWrapper} from '@franzzemen/re-common';
-import {ConditionExecutionContext, ReCondition} from '@franzzemen/re-condition';
-import {dataTypeOptionsSchemaWrapper} from '@franzzemen/re-data-type';
-import {expressionOptionsSchemaWrapper} from '@franzzemen/re-expression';
+import {CommonExecutionContextDefaults, commonOptionsSchemaWrapper} from '@franzzemen/re-common';
+import {ConditionExecutionContext, ConditionExecutionContextDefaults, ReCondition} from '@franzzemen/re-condition';
+import {DataTypeExecutionContextDefaults, dataTypeOptionsSchemaWrapper} from '@franzzemen/re-data-type';
+import {ExpressionExecutionContextDefaults, expressionOptionsSchemaWrapper} from '@franzzemen/re-expression';
 import Validator, {ValidationError} from 'fastest-validator';
 import {isPromise} from 'util/types';
 
@@ -27,6 +27,10 @@ export class LogicalConditionExecutionContextDefaults {
   static LogicalConditionOptions: LogicalConditionOptions = {
   }
   static ReLogicalCondition: ReLogicalCondition = {
+    common: CommonExecutionContextDefaults.CommonOptions,
+    data: DataTypeExecutionContextDefaults.DataTypeOptions,
+    expression: ExpressionExecutionContextDefaults.ExpressionOptions,
+    condition: ConditionExecutionContextDefaults.ConditionOptions,
     logicalCondition: LogicalConditionExecutionContextDefaults.LogicalConditionOptions
   }
   static LogicalConditionExecutionContext: LogicalConditionExecutionContext = {
