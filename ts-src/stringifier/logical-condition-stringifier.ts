@@ -1,4 +1,4 @@
-import {ExecutionContextI} from '@franzzemen/app-utility';
+import {LogExecutionContext} from '@franzzemen/logger-adapter';
 import {isFragment, LogicalOperator} from '@franzzemen/re-common';
 import {ConditionStringifier} from '@franzzemen/re-condition';
 import {LogicalConditionGroupReference} from '../logical-condition-group-reference';
@@ -10,7 +10,7 @@ export class LogicalConditionStringifier {
   constructor() {
   }
 
-  stringify(ref: LogicalConditionGroupReference, scope: LogicalConditionScope, options?: StringifyLogicalConditionOptions, ec?: ExecutionContextI, innerLogicalCondition = true): string {
+  stringify(ref: LogicalConditionGroupReference, scope: LogicalConditionScope, options?: StringifyLogicalConditionOptions, ec?: LogExecutionContext, innerLogicalCondition = true): string {
     let stringified: string;
     if (innerLogicalCondition || ref.operator !== LogicalOperator.and) {
       // TODO: Any symbol could be used for brackets

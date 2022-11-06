@@ -1,4 +1,5 @@
-import {ExecutionContextI, Hints, LoggerAdapter} from '@franzzemen/app-utility';
+import {Hints} from '@franzzemen/hints';
+import {LogExecutionContext, LoggerAdapter} from '@franzzemen/logger-adapter';
 import {
   EndConditionType,
   FragmentParser,
@@ -24,7 +25,7 @@ import {
 export const logicalOperators = [LogicalOperator.andNot, LogicalOperator.and, LogicalOperator.orNot, LogicalOperator.or];
 
 class FragmentParserAdapter implements FragmentParser<ExpressionReference> {
-  parse(fragment: string, scope: ExpressionScope, ec?: ExecutionContextI): [string, ExpressionReference, ParserMessages] {
+  parse(fragment: string, scope: ExpressionScope, ec?: LogExecutionContext): [string, ExpressionReference, ParserMessages] {
     const log = new LoggerAdapter(ec, 'rules-engine', 'logical-expression-parser', `${FragmentParserAdapter.name}.parse`);
     const near = fragment;
     const parserMessages: ParserMessages = [];
@@ -44,7 +45,7 @@ export class LogicalExpressionParser extends ExpressionParser {
     super(LogicalConditionExpressionType.Logical);
   }
 
-  parse(remaining: string, scope: ExpressionScope, hints: Hints, ec?: ExecutionContextI): [string, LogicalConditionExpressionReference, ParserMessages] {
+  parse(remaining: string, scope: ExpressionScope, hints: Hints, ec?: LogExecutionContext): [string, LogicalConditionExpressionReference, ParserMessages] {
     const log = new LoggerAdapter(ec, 'rules-engine', 'logical-expression-parser', 'parse');
 
     let type = hints.get(ExpressionHintKey.Type) as string;

@@ -1,4 +1,4 @@
-import {ExecutionContextI, LoggerAdapter} from '@franzzemen/app-utility';
+import {LogExecutionContext, LoggerAdapter} from '@franzzemen/logger-adapter';
 import {Fragment, isFragment, LogicalOperator} from '@franzzemen/re-common';
 import {Condition, ConditionI, ConditionReference} from '@franzzemen/re-condition';
 import {isPromise} from 'node:util/types';
@@ -20,7 +20,7 @@ export class LogicalCondition {
   operator: LogicalOperator;
   condition: ConditionI;
 
-  constructor(fragment: Fragment<LogicalOperator, ConditionReference>, scope: LogicalConditionScope, ec?: ExecutionContextI) {
+  constructor(fragment: Fragment<LogicalOperator, ConditionReference>, scope: LogicalConditionScope, ec?: LogExecutionContext) {
     this.operator = fragment.operator;
     this.condition = new Condition(fragment.reference, scope, ec);
   }
@@ -30,7 +30,7 @@ export class LogicalConditionGroup {
   operator: LogicalOperator;
   conditions: LogicalConditionOrLogicalConditionGroup[] = [];
 
-  constructor(ref: LogicalConditionGroupReference, scope: LogicalConditionScope, ec?: ExecutionContextI) {
+  constructor(ref: LogicalConditionGroupReference, scope: LogicalConditionScope, ec?: LogExecutionContext) {
     this.operator = ref.operator;
     ref.group.forEach(element => {
       if (isFragment(element)) {
@@ -203,7 +203,7 @@ export class LogicalConditionGroup {
     return logicalResults[0];
   }
 
-  private static awaitEvaluation(logicalConditionGroup: LogicalConditionGroup, item: any, scope: LogicalConditionScope, ec?: ExecutionContextI): LogicalConditionResult | Promise<LogicalConditionResult> {
+  private static awaitEvaluation(logicalConditionGroup: LogicalConditionGroup, item: any, scope: LogicalConditionScope, ec?: LogExecutionContext): LogicalConditionResult | Promise<LogicalConditionResult> {
     const log = new LoggerAdapter(ec, 'rules-engine', 'logical-condition-group', LogicalConditionGroup.name + ':evaluate');
     if (logicalConditionGroup) {
       const logicalResults: LogicalConditionResult[] = [];
@@ -271,11 +271,11 @@ export class LogicalConditionGroup {
     }
   }
 
-  awaitEvaluation(item: any, scope: LogicalConditionScope, ec?: ExecutionContextI): LogicalConditionResult | Promise<LogicalConditionResult> {
+  awaitEvaluation(item: any, scope: LogicalConditionScope, ec?: LogExecutionContext): LogicalConditionResult | Promise<LogicalConditionResult> {
     return LogicalConditionGroup.awaitEvaluation(this, item, scope, ec);
   }
 
-  to(ec?: ExecutionContextI): LogicalConditionGroupReference {
+  to(ec?: LogExecutionContext): LogicalConditionGroupReference {
     const topRef: Partial<LogicalConditionGroupReference> = {};
     topRef.operator = this.operator;
     topRef.group = [];

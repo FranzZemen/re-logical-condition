@@ -1,5 +1,5 @@
-import {ExecutionContextI, LoggerAdapter} from '@franzzemen/app-utility';
-import {logErrorAndThrow} from '@franzzemen/app-utility/enhanced-error.js';
+import {logErrorAndThrow} from '@franzzemen/enhanced-error';
+import {LogExecutionContext, LoggerAdapter} from '@franzzemen/logger-adapter';
 import {Fragment, isFragment, LogicalOperator, RecursiveGrouping} from '@franzzemen/re-common';
 import {StandardDataType} from '@franzzemen/re-data-type';
 import {
@@ -28,14 +28,14 @@ export class LogicalExpression {
   operator: LogicalOperator;
   expression: Expression;
 
-  constructor(ref: Fragment<LogicalOperator, ExpressionReference>, scope: LogicalConditionScope, ec?: ExecutionContextI) {
+  constructor(ref: Fragment<LogicalOperator, ExpressionReference>, scope: LogicalConditionScope, ec?: LogExecutionContext) {
     this.operator = ref.operator;
     if(ref.reference.dataTypeRef === StandardDataType.Unknown || ref.reference.dataTypeRef === StandardDataType.Boolean) {
       const expressionFactory = scope.get(ExpressionScope.ExpressionFactory) as ExpressionFactory;
       this.expression = expressionFactory.createExpression(ref.reference, scope, ec);
     } else {
       const log = new LoggerAdapter(ec, 're-logical-condition', 'logical-condition-expression', 'LogicalExpression constructor');
-      logErrorAndThrow('reference data type is not Boolean or Unknown', log, ec);
+      logErrorAndThrow('reference data type is not Boolean or Unknown', log);
     }
     if (!scope.isResolved()) {
       const log = new LoggerAdapter(ec, 're-logical-condition', 'logical-condition-expression', 'LogicalExpression constructor');
@@ -59,7 +59,7 @@ export class LogicalConditionExpression extends Expression {
   operator: LogicalOperator;
   group: LogicalConditionExpressionGroup = [];
 
-  constructor(ref: LogicalConditionExpressionReference, scope: LogicalConditionScope, ec?: ExecutionContextI) {
+  constructor(ref: LogicalConditionExpressionReference, scope: LogicalConditionScope, ec?: LogExecutionContext) {
     super(ref, scope, ec);
     this.operator = ref.operator;
     ref.group.forEach(element => {
@@ -76,10 +76,10 @@ export class LogicalConditionExpression extends Expression {
   }
 
 
-  awaitEvaluation(dataDomain: any, scope: Map<string, any>, ec?: ExecutionContextI): any {
+  awaitEvaluation(dataDomain: any, scope: Map<string, any>, ec?: LogExecutionContext): any {
   }
 
-  to(ec?: ExecutionContextI): LogicalConditionExpressionReference {
+  to(ec?: LogExecutionContext): LogicalConditionExpressionReference {
     return undefined;
   }
 

@@ -18,13 +18,10 @@
   },
   "homepage": "https://github.com/FranzZemen/re-logical-condition#readme",
   "devDependencies": {
-    "@franzzemen/gulp-base": "^12.0.4",
-    "@franzzemen/npmu": "^2.0.16",
-    "@franzzemen/safe-config": "^2.0.45",
+    "@franzzemen/gulp-base": "^12.1.1",
+    "@franzzemen/npmu": "^2.0.18",
     "@types/chai": "^4.3.3",
     "@types/mocha": "^10.0.0",
-    "@types/object-path": "^0.11.1",
-    "@types/uuid": "^8.3.4",
     "chai": "^4.3.6",
     "gulp": "^4.0.2",
     "gulp-mocha": "^8.0.0",
@@ -32,14 +29,15 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
-    "@franzzemen/app-utility": "^5.1.17",
-    "@franzzemen/re-common": "10.2.5",
-    "@franzzemen/re-condition": "0.0.36",
-    "@franzzemen/re-data-type": "9.2.4",
-    "@franzzemen/re-expression": "4.1.11",
-    "fastest-validator": "^1.15.0",
-    "moment": "^2.29.4",
-    "object-path": "^0.11.8",
-    "uuid": "^9.0.0"
+    "@franzzemen/app-execution-context": "^2.1.1",
+    "@franzzemen/enhanced-error": "^1.2.0",
+    "@franzzemen/execution-context": "^2.0.4",
+    "@franzzemen/hints": "^1.1.2",
+    "@franzzemen/logger-adapter": "^4.3.0",
+    "@franzzemen/re-common": "10.4.6",
+    "@franzzemen/re-condition": "2.0.4",
+    "@franzzemen/re-data-type": "9.4.5",
+    "@franzzemen/re-expression": "5.0.3",
+    "fastest-validator": "^1.15.0"
   }
 }
